@@ -4,7 +4,7 @@ Python wrapper for mercury-parser
 ---
 
 ## Installation:
-`docker-compose.yml` contains the configuration to run [mercury-py](https://github.com/postlight/mercury-parser) with [nginx](https://www.nginx.com/) as the load blancer.
+`docker-compose.yml` contains the configuration to run [mercury-parser](https://github.com/postlight/mercury-parser) with [nginx](https://www.nginx.com/) as the load blancer.
 
 ```bash
 docker-compose up -d --scale mercury-parser=n # wher n is the number of instances of mercury-parser
