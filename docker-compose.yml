@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  mercury-parser:
+    image: wangqiru/mercury-parser-api
+    expose:
+      - "3000"
+  nginx-load-balancer:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - mercury-parser
+    ports:
+      - "4000:4000"
