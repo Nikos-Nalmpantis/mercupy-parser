@@ -14,8 +14,15 @@ class Mercupy:
     def parser(self,
                urls: Union[str, List[str]],
                headers: Optional[str] = None,
-               content_type: Optional[str] = None,
-               ) -> Tuple[Response]:
+               content_type: Optional[str] = None) -> Tuple[Response]:
+        """ Gathers responses from async requests to mercury parser """
+        responses = asyncio.run(self._parser(urls, headers, content_type))
+        return responses
+
+    async def _parser(self,
+                     urls: Union[str, List[str]],
+                     headers: Optional[str] = None,
+                     content_type: Optional[str] = None) -> Tuple[Response]:
         """ Convenience method to parse multiple urls """
         if not urls:
             raise AttributeError("urls not provided")
@@ -24,12 +31,9 @@ class Mercupy:
             urls = [urls]
 
         start = time()
-        loop = asyncio.get_event_loop()
-        tasks = [loop.create_task(self.mercury_parser(url, self.api_endpoint, headers, content_type))
-                 for url in urls]
-        responses = loop.run_until_complete(asyncio.gather(*tasks))
-        loop.close()
-        print(f"Inner main Time: {time() - start:.2f} sec")
+        responses = await asyncio.gather(*(self.mercury_parser(url, self.api_endpoint, headers, content_type) for url in urls))
+        end = time()
+        print(f"Inner main Time: {end - start:.2f} sec")
 
         return responses
 

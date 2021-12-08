@@ -19,14 +19,16 @@ pip install -r requirements.txt
 
 ## Usage:
 ```python
-from mercupy_parser import MercupyParser
+from mercupy_parser import Mercupy
 
 # api_endpoint = "http://localhost:4000/parser"
-mercupy = MercupyParser(api_endpoint=api_endpoint)
+mercupy = Mercupy(api_endpoint=api_endpoint)
 
 # parse single url
 responses = mercupy.parser(url, headers=headers, content_type=content_type)
 
 # parse multiple urls
 responses = mercupy.parser(urls, headers=headers, content_type=content_type)
+
+print(responses[0].json())
 ```
