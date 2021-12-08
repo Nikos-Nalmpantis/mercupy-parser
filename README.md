@@ -3,11 +3,11 @@ Python wrapper for [mercury-parser](https://github.com/postlight/mercury-parser)
 
 ---
 
-## Installation:
+## Installation
 `docker-compose.yml` contains the configuration to run [mercury-parser](https://github.com/postlight/mercury-parser) with [nginx](https://www.nginx.com/) as the load blancer.
 
 ```bash
-# wher n is the number of instances of mercury-parser
+# n is the number of instances of mercury-parser
 docker-compose up -d --scale mercury-parser=n
 ```
 Then you can access the service at [http://localhost:4000](http://localhost:4000).
@@ -18,7 +18,7 @@ pip install mercupy-parser
 
 ---
 
-## Usage:
+## Usage
 ```python
 from mercupy_parser import Mercupy
 
