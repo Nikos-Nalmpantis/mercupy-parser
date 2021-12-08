@@ -1,5 +1,5 @@
-# mercupy-parser
-Python wrapper for mercury-parser
+# MercuPy Parser
+Python wrapper for [mercury-parser](https://github.com/postlight/mercury-parser)
 
 ---
 
