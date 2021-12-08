@@ -12,7 +12,7 @@ docker-compose up -d --scale mercury-parser=n # wher n is the number of instance
 Then you can access the service at [http://localhost:4000](http://localhost:4000).
 
 ```bash
-pip install -r requirements.txt
+pip install mercupy-parser
 ```
 
 ---
