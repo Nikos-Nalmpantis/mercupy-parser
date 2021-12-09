@@ -1,15 +1,28 @@
 import asyncio
-from typing import List, Tuple, Union, Optional
+import os
+from functools import reduce
 from time import time
+from typing import List, Tuple, Union, Optional
+from urllib.parse import urljoin as join
 
 import httpx
 import validators
 from httpx import Response
 
 
+def urljoin(*terms: str) -> str:
+    print(terms)
+    return reduce(join, terms)
+
+
 class Mercupy:
-    def __init__(self, api_endpoint: str = "http://0.0.0.0:4000/parser"):
-        self.api_endpoint = api_endpoint
+    def __init__(self, api_endpoint: Optional[str] = None, verbose: bool = False):
+        if api_endpoint:
+            api_endpoint = api_endpoint
+        else:
+            api_endpoint = os.environ.get("API_ENDPOINT", "http://0.0.0.0:4000/parser")
+        self.api_endpoint = urljoin(api_endpoint, "parser")
+        self.verbose = verbose
 
     def parser(self,
                urls: Union[str, List[str]],
@@ -25,21 +38,21 @@ class Mercupy:
                      content_type: Optional[str] = None) -> Tuple[Response]:
         """ Convenience method to parse multiple urls """
         if not urls:
-            raise AttributeError("urls not provided")
+            raise AttributeError("URLS not provided")
 
         if isinstance(urls, str):
             urls = [urls]
 
         start = time()
-        responses = await asyncio.gather(*(self.mercury_parser(url, self.api_endpoint, headers, content_type) for url in urls))
+        responses = await asyncio.gather(*(self.mercury_parser(url, headers, content_type) for url in urls))
         end = time()
-        print(f"Inner main Time: {end - start:.2f} sec")
+        if self.verbose is True:
+            print(f"Response time: {end - start:.2f} sec")
 
         return responses
 
     async def mercury_parser(self,
                              url: str,
-                             api_endpoint: str,
                              headers: Optional[str] = None,
                              content_type: Optional[str] = None,
                              timeout: int = 20) -> Response:
@@ -50,6 +63,6 @@ class Mercupy:
         params = {"url": url, "headers": headers, "contentType": content_type}
         params = {key: value for key, value in params.items() if value}
         async with httpx.AsyncClient() as client:
-            r = await client.get(api_endpoint, params=params, timeout=timeout)
+            r = await client.get(self.api_endpoint, params=params, timeout=timeout)
 
         return r
