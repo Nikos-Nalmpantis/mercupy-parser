@@ -23,7 +23,7 @@ pip install mercupy-parser
 from mercupy_parser import Mercupy
 
 # api_endpoint = "http://localhost:4000/parser"
-mercupy = Mercupy(api_endpoint=api_endpoint)
+mercupy = Mercupy(api_endpoint=api_endpoint, verbose=True)
 
 # parse single url
 responses = mercupy.parser(url, headers=headers, content_type=content_type)
