@@ -1,7 +1,7 @@
 import asyncio
 import os
 from functools import reduce
-from time import time
+from time import perf_counter
 from typing import List, Tuple, Union, Optional
 from urllib.parse import urljoin as join
 
@@ -11,7 +11,6 @@ from httpx import Response
 
 
 def urljoin(*terms: str) -> str:
-    print(terms)
     return reduce(join, terms)
 
 
@@ -43,9 +42,9 @@ class Mercupy:
         if isinstance(urls, str):
             urls = [urls]
 
-        start = time()
+        start = perf_counter()
         responses = await asyncio.gather(*(self.mercury_parser(url, headers, content_type) for url in urls))
-        end = time()
+        end = perf_counter()
         if self.verbose is True:
             print(f"Response time: {end - start:.2f} sec")
 
