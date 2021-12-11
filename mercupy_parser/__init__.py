@@ -16,10 +16,8 @@ def urljoin(*terms: str) -> str:
 
 class Mercupy:
     def __init__(self, api_endpoint: Optional[str] = None, verbose: bool = False):
-        print("Check")
         api_endpoint = api_endpoint or os.environ.get("API_ENDPOINT", "http://0.0.0.0:4000")
         self.api_endpoint = urljoin(api_endpoint, "parser")
-        print(self.api_endpoint)
         self.verbose = verbose
 
     def parser(self,
@@ -59,4 +57,3 @@ class Mercupy:
             print(f"Response time: {end - start:.2f} sec")
 
         return responses
-
