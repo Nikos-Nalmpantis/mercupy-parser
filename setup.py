@@ -1,5 +1,4 @@
 import os
-import sys
 
 from setuptools import setup
 
@@ -10,7 +9,7 @@ with open(os.path.join(os.path.dirname(__file__), "README.rst")) as f:
 
 setup(
     name='mercupy_parser',
-    version='0.2',
+    version='0.2.1',
     description='Python wrapper for mercury-parser',
     long_description=long_description,
     url='https://github.com/nikosNalmpantis/mercupy-parser',
@@ -20,7 +19,6 @@ setup(
     packages=['mercupy_parser'],
     install_requires=[
       'httpx',
-      'validators',
     ],
     zip_safe=False
 )
