@@ -1,5 +1,4 @@
 import os
-import sys
 
 from setuptools import setup
 
@@ -20,7 +19,6 @@ setup(
     packages=['mercupy_parser'],
     install_requires=[
       'httpx',
-      'validators',
     ],
     zip_safe=False
 )
