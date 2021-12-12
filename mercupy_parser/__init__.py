@@ -6,7 +6,6 @@ from typing import List, Tuple, Union, Optional
 from urllib.parse import urljoin as join
 
 import httpx
-import validators
 from httpx import Response
 
 
@@ -47,7 +46,7 @@ class Mercupy:
 
         async with httpx.AsyncClient() as client:
             tasks = (client.get(self.api_endpoint,
-                                params={**{"url": url}, **params},
+                                params={"url": url, **params},
                                 timeout=timeout)
                      for url in urls)
             responses = await asyncio.gather(*tasks)
